@@ -1,5 +1,6 @@
 package pages;
 
+import dataGenerator.RegistrationData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -29,13 +30,12 @@ public class HomePage extends BasePage{
         assertStringEquals(readText(errorNotificationBy), expectedText);
     }
 
-    public void registration(String email, String firstName, String password){
+    public void registerRandomUser(RegistrationData registrationData){
         clickElement(navigateToSignInButtonBy);
         clickElement(navigateToRegistrationButtonBy);
-        writeText(registerEmailFieldBy, email);
-        writeText(registerFirstNameFieldBy, firstName);
-        writeText(registerPasswordFieldBy, password);
+        writeText(registerEmailFieldBy, registrationData.getEmail());
+        writeText(registerPasswordFieldBy, registrationData.getPassword());
+        writeText(registerFirstNameFieldBy, registrationData.getFirstName());
         clickElement(registerButtonBy);
     }
-
 }

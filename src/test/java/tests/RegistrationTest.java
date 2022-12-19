@@ -1,7 +1,5 @@
 package tests;
-
-import dataGenerator.DataCreation;
-import org.testng.Assert;
+import dataGenerator.RegistrationData;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.UserLoggedInPage;
@@ -13,14 +11,13 @@ public class RegistrationTest extends BaseTest{
 
     public void registerNewUser() {
         HomePage homePage = new HomePage(driver);
-        String email = DataCreation.generateEmail();
-        String password = DataCreation.generatePassword();
-        homePage.registration(email, DataCreation.generateFirstName(), password);
+        RegistrationData registrationData = RegistrationData.generateUser();
+        homePage.registerRandomUser(registrationData);
         try {
             UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver);
             userLoggedInPage.verifyRegistration("action");
-            PropertyManager.changeProperty("goodEmail", email);
-            PropertyManager.changeProperty("goodPassword", password);
+            PropertyManager.changeProperty("goodEmail", registrationData.getEmail());
+            PropertyManager.changeProperty("goodPassword", registrationData.getPassword());
         } catch (Exception e){
             e.printStackTrace();
         }
